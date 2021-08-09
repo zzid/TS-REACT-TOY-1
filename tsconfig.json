@@ -20,7 +20,8 @@
             "@src": ["src"],
             "@scss": ["src/scss"],
             "@layouts": ["src/components/layouts"],
-            "@pages": ["src/components/pages"]
+            "@pages": ["src/components/pages"],
+            "@components": ["src/components"]
         }
     },
     "include": ["src", "src/index.tsx"]
