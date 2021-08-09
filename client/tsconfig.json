@@ -19,8 +19,8 @@
         "paths": {
             "@src": ["src"],
             "@scss": ["src/scss"],
-            "@layouts": ["src/components/layouts"],
-            "@pages": ["src/components/pages"],
+            "@layouts": ["src/layouts"],
+            "@hooks": ["src/hooks"],
             "@components": ["src/components"]
         }
     },

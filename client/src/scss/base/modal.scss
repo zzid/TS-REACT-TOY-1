@@ -1,0 +1,19 @@
+@import "../mixin/mixin.scss";
+
+.room-name-input {
+    @include flexAllCenter(column);
+    background-color: #bfbfdb;
+    width: 30vw;
+    height: 20vw;
+    border-radius: 15px;
+    margin: auto;
+    color: white;
+    .btn-area {
+        @include flexAllCenter(row);
+        width: 100%;
+        margin: 3% auto;
+        .btn {
+            margin: 3%;
+        }
+    }
+}
