@@ -8,3 +8,13 @@ body {
 * {
     box-sizing: border-box;
 }
+
+a {
+    &,
+    &:link,
+    &:visited,
+    &:hover {
+        color: white;
+        text-decoration: none;
+    }
+}

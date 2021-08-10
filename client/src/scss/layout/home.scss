@@ -7,4 +7,9 @@
     justify-content: center;
     overflow: hidden;
     color: white;
+    position: relative;
+    h1 {
+        position: absolute;
+        top: 30%;
+    }
 }

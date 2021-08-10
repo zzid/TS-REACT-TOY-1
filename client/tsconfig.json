@@ -21,7 +21,8 @@
             "@scss": ["src/scss"],
             "@layouts": ["src/layouts"],
             "@hooks": ["src/hooks"],
-            "@components": ["src/components"]
+            "@components": ["src/components"],
+            "@general": ["src/components/general"]
         }
     },
     "include": ["src", "src/index.tsx"]

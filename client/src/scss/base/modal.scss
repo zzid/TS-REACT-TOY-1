@@ -2,12 +2,20 @@
 
 .room-name-input {
     @include flexAllCenter(column);
-    background-color: #bfbfdb;
+    animation: fadeIn 0.5s;
+    background-color: #b7b7d3;
     width: 30vw;
     height: 20vw;
     border-radius: 15px;
     margin: auto;
     color: white;
+    .MuiFormLabel-root {
+        width: 80%;
+        color: white;
+        .MuiOutlinedInput-notchedOutline {
+            border-color: white !important;
+        }
+    }
     .btn-area {
         @include flexAllCenter(row);
         width: 100%;
@@ -15,5 +23,45 @@
         .btn {
             margin: 3%;
         }
+        justify-content: space-between;
     }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.create-room-input {
+    animation: fadeIn 0.5s;
+    .MuiFormLabel-root {
+        width: 80%;
+        color: white;
+        .MuiOutlinedInput-notchedOutline {
+            border-color: white !important;
+        }
+    }
+    .btn-area {
+        @include flexAllCenter(row);
+        width: 100%;
+        margin: 3% auto;
+        .btn {
+            margin: 3%;
+        }
+        justify-content: space-between;
+    }
+}
+.create-room-btn {
+    animation: fadeIn 0.5s;
+}
+
+.footer {
+    @include flexAllCenter(column);
+    color: white;
+    width: 100%;
+    position: absolute;
+    bottom: 10%;
 }

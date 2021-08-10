@@ -46,16 +46,59 @@ const Home: React.FC = () => {
     return (
         <div className="home">
             <h1>Chat & Something</h1>
-            <Button variant="contained" color="primary" onClick={onClickCreate}>
-                Create Room
-            </Button>
-            <Modal
+            {showRoomNameModal && (
+                <FormControl className="create-room-input">
+                    <TextField
+                        fullWidth
+                        className="inputText"
+                        label="enter room name"
+                        variant="outlined"
+                        onChange={handleChangeRoomName}
+                        onKeyDown={handleKeyDown}
+                        value={roomName}
+                        error={error}
+                        helperText={error && "you have to fill this field"}
+                    />
+                    <div className="btn-area">
+                        <Button
+                            className="btn"
+                            variant="contained"
+                            color="primary"
+                            size="small"
+                            onClick={handleSubmit}
+                        >
+                            Confirm
+                        </Button>
+                        <Button
+                            className="btn"
+                            variant="contained"
+                            size="small"
+                            onClick={onCloseModal}
+                        >
+                            Cancel
+                        </Button>
+                    </div>
+                </FormControl>
+            )}
+            {!showRoomNameModal && (
+                <Button
+                    className="create-room-btn"
+                    variant="contained"
+                    color="primary"
+                    onClick={onClickCreate}
+                >
+                    Create Room
+                </Button>
+            )}
+            {/* <Modal
                 className="room-name-input"
                 disablePortal
                 open={showRoomNameModal}
             >
                 <FormControl>
                     <TextField
+                        fullWidth
+                        className="inputText"
                         color="primary"
                         label="room name"
                         variant="outlined"
@@ -86,7 +129,8 @@ const Home: React.FC = () => {
                         </Button>
                     </div>
                 </FormControl>
-            </Modal>
+            </Modal> */}
+            
         </div>
     );
 };
