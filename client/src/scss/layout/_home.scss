@@ -12,4 +12,10 @@
         position: absolute;
         top: 30%;
     }
+
+    .inputText {
+        .MuiInputBase-input {
+            color: $color-white;
+        }
+    }
 }

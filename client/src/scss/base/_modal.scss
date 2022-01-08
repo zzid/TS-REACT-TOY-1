@@ -36,6 +36,8 @@
     }
 }
 .create-room-input {
+    margin-top: 15% !important;
+    width: 50vw;
     animation: fadeIn 0.5s;
     .MuiFormLabel-root {
         width: 80%;
@@ -51,7 +53,7 @@
         .btn {
             margin: 3%;
         }
-        justify-content: space-between;
+        justify-content: center;
     }
 }
 .create-room-btn {

@@ -1,12 +1,22 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Modal, Button, TextField, FormControl } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import { Footer } from "@layouts";
+
+import { useStorage, useInput } from "@hooks";
 
 const Home: React.FC = () => {
     const [showRoomNameModal, setShowRoomNameModal] = useState(false);
     const [roomName, setRoomName] = useState("");
+    // const [userName, setUserName] = useState("");
     const [error, setError] = useState(false);
-    const history = useHistory();
+    const [storageUserName, setStorageUserName] = useStorage({
+        key: "ZZID_APP::userName",
+        type: "session",
+    });
+    const [userName, onChangeUserName, setUserName] = useInput("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log("start");
@@ -20,15 +30,23 @@ const Home: React.FC = () => {
         setShowRoomNameModal(false);
     };
 
-    const handleChangeRoomName = (
-        event: React.ChangeEvent<HTMLInputElement>
+    const handleInputChange = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        type: string
     ) => {
         const {
             target: { value },
         } = event;
 
         if (value) setError(false);
-        setRoomName(value);
+        switch (type) {
+            case "userName":
+                return setUserName(value);
+            case "roomName":
+                return setRoomName(value);
+            default:
+                break;
+        }
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -39,48 +57,69 @@ const Home: React.FC = () => {
 
     const handleSubmit = () => {
         if (roomName === "") return setError(true);
+        setStorageUserName(userName);
 
-        return history.push(`/room/${roomName}`);
+        return navigate(`/room/${roomName}`);
     };
+
+    const UserNameInput = () => (
+        <TextField
+            fullWidth
+            className="inputText"
+            label="enter user name"
+            variant="outlined"
+            onChange={onChangeUserName}
+            onKeyDown={handleKeyDown}
+            value={userName}
+            error={error}
+            helperText={error && "you have to fill this field"}
+        />
+    );
+    const RoomNameInput = () => (
+        <TextField
+            fullWidth
+            className="inputText"
+            label="enter room name"
+            variant="outlined"
+            onChange={(e) => handleInputChange(e, "roomName")}
+            onKeyDown={handleKeyDown}
+            value={roomName}
+            error={error}
+            helperText={error && "you have to fill this field"}
+        />
+    );
+    const Buttons = () => (
+        <div className="btn-area">
+            <Button
+                className="btn"
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={handleSubmit}
+            >
+                Confirm
+            </Button>
+            <Button
+                className="btn"
+                variant="contained"
+                size="small"
+                onClick={onCloseModal}
+            >
+                Cancel
+            </Button>
+        </div>
+    );
 
     return (
         <div className="home">
             <h1>Chat & Something</h1>
-            {showRoomNameModal && (
+            {showRoomNameModal ? (
                 <FormControl className="create-room-input">
-                    <TextField
-                        fullWidth
-                        className="inputText"
-                        label="enter room name"
-                        variant="outlined"
-                        onChange={handleChangeRoomName}
-                        onKeyDown={handleKeyDown}
-                        value={roomName}
-                        error={error}
-                        helperText={error && "you have to fill this field"}
-                    />
-                    <div className="btn-area">
-                        <Button
-                            className="btn"
-                            variant="contained"
-                            color="primary"
-                            size="small"
-                            onClick={handleSubmit}
-                        >
-                            Confirm
-                        </Button>
-                        <Button
-                            className="btn"
-                            variant="contained"
-                            size="small"
-                            onClick={onCloseModal}
-                        >
-                            Cancel
-                        </Button>
-                    </div>
+                    <UserNameInput />
+                    <RoomNameInput />
+                    <Buttons />
                 </FormControl>
-            )}
-            {!showRoomNameModal && (
+            ) : (
                 <Button
                     className="create-room-btn"
                     variant="contained"
@@ -90,49 +129,7 @@ const Home: React.FC = () => {
                     Create Room
                 </Button>
             )}
-            {/* <Modal
-                className="room-name-input"
-                disablePortal
-                open={showRoomNameModal}
-            >
-                <FormControl>
-                    <TextField
-                        fullWidth
-                        className="inputText"
-                        color="primary"
-                        label="room name"
-                        variant="outlined"
-                        onChange={handleChangeRoomName}
-                        onKeyDown={handleKeyDown}
-                        value={roomName}
-                        required
-                        error={error}
-                        helperText={error && "you have to fill this field"}
-                    />
-                    <div className="btn-area">
-                        <Button
-                            className="btn"
-                            variant="contained"
-                            color="primary"
-                            size="small"
-                            onClick={handleSubmit}
-                        >
-                            Confirm
-                        </Button>
-                        <Button
-                            className="btn"
-                            variant="contained"
-                            size="small"
-                            onClick={onCloseModal}
-                        >
-                            Cancel
-                        </Button>
-                    </div>
-                </FormControl>
-            </Modal> */}
-            
+            <Footer />
         </div>
     );
 };
-
-export default Home;
